@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">Nuna Survei</string>
-    <string name="title_activity_welcome">WelcomeActivity</string>
+    <string name="app_name">Talentify</string>
     <string name="title_activity_register">RegisterActivity</string>
 </resources>
