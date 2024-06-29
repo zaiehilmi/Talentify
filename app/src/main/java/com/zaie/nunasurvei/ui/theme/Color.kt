@@ -10,8 +10,10 @@ val Purple40 = Color(0xFF6650a4)
 val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 
-val focus = Color(0xFFff6700)
-val surfaceFrozen = Color(0xffebebeb)
-val inactive = Color(0xffc0c0c0)
-val primaryButton = Color(0xff3a6ea5)
-val title = Color(0xff004e98)
+object ZaieColor {
+  val focus = Color(0xFFEB5E28)
+  val surfaceFrozen = Color(0xffebebeb)
+  val inactive = Color(0xffc0c0c0)
+  val primaryButton = Color(0xff3C6E71)
+  val title = Color(0xff284B63)
+}

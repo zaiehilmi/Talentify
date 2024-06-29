@@ -18,7 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.zaie.nunasurvei.ui.theme.title
+import com.zaie.nunasurvei.ui.theme.ZaieColor
 
 @Composable
 fun ZaieTextField(
@@ -35,7 +35,7 @@ fun ZaieTextField(
     Text(
       text = label,
       style = typography.labelLarge,
-      color = title
+      color = ZaieColor.title
     )
     Spacer(modifier = Modifier.height(5.dp))
     OutlinedTextField(

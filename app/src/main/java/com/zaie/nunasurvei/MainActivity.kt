@@ -14,12 +14,16 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.zaie.nunasurvei.component.ZaieButton
 import com.zaie.nunasurvei.ui.theme.NunaSurveiTheme
-import com.zaie.nunasurvei.ui.theme.surfaceFrozen
+import com.zaie.nunasurvei.ui.theme.ZaieColor
+import dev.olshevski.navigation.reimagined.NavBackHandler
+import dev.olshevski.navigation.reimagined.navigate
+import dev.olshevski.navigation.reimagined.rememberNavController
 
 class MainActivity : ComponentActivity() {
   private val usernameTF = ""
@@ -31,7 +35,7 @@ class MainActivity : ComponentActivity() {
       NunaSurveiTheme {
         // A surface container using the 'background' color from the theme
         Scaffold(
-          containerColor = surfaceFrozen,
+          containerColor = ZaieColor.surfaceFrozen,
           modifier = Modifier
             .fillMaxSize()
         ) { innerPadding ->
@@ -40,35 +44,10 @@ class MainActivity : ComponentActivity() {
             modifier = Modifier
               .padding(innerPadding)
               .fillMaxSize()
-              .padding(vertical = 40.dp, horizontal = 20.dp)
+              .padding(top = 140.dp, bottom = 40.dp, start = 20.dp, end = 20.dp)
           ) {
-            Column {
-              Text(
-                text = "Let's",
-                style = typography.displaySmall
-              )
-              Text(
-                text = "Talentify",
-                style = typography
-                  .displayLarge
-                  .copy(fontWeight = FontWeight.Bold)
-              )
-            }
-            Row(
-              horizontalArrangement = Arrangement.SpaceBetween,
-              modifier = Modifier
-                .fillMaxWidth()
-            ) {
-              ZaieButton(
-                title = "Login",
-                isSecondary = true,
-                onTap = {}
-              )
-              ZaieButton(
-                title = "Register",
-                onTap = {}
-              )
-            }
+            Greeting()
+            BottomButton()
           }
 
         }
@@ -78,17 +57,47 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-  Text(
-    text = "Hello $name!",
-    modifier = modifier
-  )
+private fun Greeting() {
+  Column {
+    Text(
+      text = "Let's",
+      style = typography.displaySmall
+    )
+    Text(
+      text = "Talentify",
+      style = typography
+        .displayMedium
+        .copy(
+          fontWeight = FontWeight.Bold,
+          fontFamily = FontFamily.Monospace,
+          color = ZaieColor.title
+        )
+    )
+  }
 }
 
-@Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
-  NunaSurveiTheme {
-    Greeting("Android")
+private fun BottomButton() {
+  Row(
+    horizontalArrangement = Arrangement.SpaceBetween,
+    modifier = Modifier
+      .fillMaxWidth()
+  ) {
+    ZaieButton(
+      title = "Login",
+      isSecondary = true,
+      onTap = {}
+    )
+    ZaieButton(
+      title = "Register",
+      onTap = {
+//        ZaieNavHost().navigate(Destinasi.Register)
+      }
+    )
   }
+}
+
+@Composable
+fun NavHostScreen() {
+
 }

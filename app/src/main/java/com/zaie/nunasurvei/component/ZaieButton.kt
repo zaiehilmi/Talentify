@@ -19,9 +19,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.zaie.nunasurvei.ui.theme.NunaSurveiTheme
-import com.zaie.nunasurvei.ui.theme.inactive
-import com.zaie.nunasurvei.ui.theme.primaryButton
-import com.zaie.nunasurvei.ui.theme.surfaceFrozen
+import com.zaie.nunasurvei.ui.theme.ZaieColor
 
 data class ZaieButtonOption(
   val modifierz: Modifier,
@@ -54,16 +52,16 @@ fun ZaieButton(
         text = title,
         style = buttonOption
           .typographyz
-          .copy(color = primaryButton)
+          .copy(color = ZaieColor.primaryButton)
       )
     }
   else Button(
     shape = RoundedCornerShape(18),
     colors = ButtonColors(
-      containerColor = primaryButton,
-      contentColor = surfaceFrozen,
-      disabledContentColor = primaryButton,
-      disabledContainerColor = inactive
+      containerColor = ZaieColor.primaryButton,
+      contentColor = ZaieColor.surfaceFrozen,
+      disabledContentColor = ZaieColor.primaryButton,
+      disabledContainerColor = ZaieColor.inactive
     ),
     modifier = buttonOption.modifierz,
     onClick = onTap
