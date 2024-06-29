@@ -14,6 +14,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -22,42 +23,54 @@ import com.zaie.nunasurvei.ui.theme.inactive
 import com.zaie.nunasurvei.ui.theme.primaryButton
 import com.zaie.nunasurvei.ui.theme.surfaceFrozen
 
+data class ZaieButtonOption(
+  val modifierz: Modifier,
+  val typographyz: TextStyle
+)
+
 @Composable
-fun ZaieButton(isSecondary: Boolean = false) {
+fun ZaieButton(
+  title: String = "title",
+  isSecondary: Boolean = false,
+  onTap: () -> Unit,
+) {
+  val buttonOption = ZaieButtonOption(
+    modifierz = Modifier
+      .height(60.dp)
+      .width(130.dp),
+    typographyz = typography
+      .titleMedium
+      .copy(fontWeight = FontWeight.SemiBold)
+  )
+
   if (isSecondary)
     OutlinedButton(
       shape = RoundedCornerShape(18),
-
       border = ButtonDefaults.outlinedButtonBorder,
-      modifier = Modifier
-        .height(80.dp)
-        .width(160.dp),
-      onClick = { /*TODO*/ }) {
+      modifier = buttonOption.modifierz,
+      onClick = onTap
+    ) {
       Text(
-        text = "Login",
-        style = typography
-          .titleLarge
-          .copy(fontWeight = FontWeight.Medium)
+        text = title,
+        style = buttonOption
+          .typographyz
+          .copy(color = primaryButton)
       )
     }
-    else
-  Button(
+  else Button(
     shape = RoundedCornerShape(18),
     colors = ButtonColors(
-      containerColor = primaryButton ,
+      containerColor = primaryButton,
       contentColor = surfaceFrozen,
       disabledContentColor = primaryButton,
       disabledContainerColor = inactive
     ),
-    modifier = Modifier
-      .height(80.dp)
-      .width(160.dp),
-    onClick = { /*TODO*/ }) {
+    modifier = buttonOption.modifierz,
+    onClick = onTap
+  ) {
     Text(
-      text = "Login",
-      style = typography
-        .titleLarge
-        .copy(fontWeight = FontWeight.Medium)
+      text = title,
+      style = buttonOption.typographyz
     )
   }
 }
@@ -65,7 +78,7 @@ fun ZaieButton(isSecondary: Boolean = false) {
 @Preview(showBackground = true)
 @Composable
 fun PreviewButton() {
-  ZaieButton()
+//  ZaieButton()
 }
 
 @Preview(showBackground = true)
@@ -78,8 +91,8 @@ fun PreviewButtonFull() {
           .padding(it)
           .padding(20.dp)
       ) {
-        ZaieButton()
-        ZaieButton(isSecondary = true)
+//        ZaieButton()
+//        ZaieButton(isSecondary = true)
       }
     }
 

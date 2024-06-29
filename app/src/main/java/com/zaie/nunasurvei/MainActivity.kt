@@ -5,7 +5,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme.typography
 import androidx.compose.material3.Scaffold
@@ -15,7 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.zaie.nunasurvei.component.ZaieTextField
+import com.zaie.nunasurvei.component.ZaieButton
 import com.zaie.nunasurvei.ui.theme.NunaSurveiTheme
 import com.zaie.nunasurvei.ui.theme.surfaceFrozen
 
@@ -28,35 +30,46 @@ class MainActivity : ComponentActivity() {
     setContent {
       NunaSurveiTheme {
         // A surface container using the 'background' color from the theme
-          Scaffold(
-            containerColor = surfaceFrozen,
+        Scaffold(
+          containerColor = surfaceFrozen,
+          modifier = Modifier
+            .fillMaxSize()
+        ) { innerPadding ->
+          Column(
+            verticalArrangement = Arrangement.SpaceBetween,
             modifier = Modifier
+              .padding(innerPadding)
               .fillMaxSize()
-          ) { _ ->
-            Column(
-              verticalArrangement = Arrangement.SpaceBetween,
-              modifier = Modifier
-                .padding(vertical = 60.dp, horizontal = 20.dp)
-            ) {
+              .padding(vertical = 40.dp, horizontal = 20.dp)
+          ) {
+            Column {
               Text(
-                text = "Let's do survey!",
-                style = typography
-                  .displayMedium
-                  .copy(fontWeight = FontWeight.Medium)
+                text = "Let's",
+                style = typography.displaySmall
               )
-              Column {
-                ZaieTextField(
-                  label = "Username",
-                  placeholder = "username",
-                  state = usernameTF
-                )
-                ZaieTextField(
-                  label = "Password",
-                  placeholder = "password",
-                  state = usernameTF
-                )
-              }
+              Text(
+                text = "Talentify",
+                style = typography
+                  .displayLarge
+                  .copy(fontWeight = FontWeight.Bold)
+              )
             }
+            Row(
+              horizontalArrangement = Arrangement.SpaceBetween,
+              modifier = Modifier
+                .fillMaxWidth()
+            ) {
+              ZaieButton(
+                title = "Login",
+                isSecondary = true,
+                onTap = {}
+              )
+              ZaieButton(
+                title = "Register",
+                onTap = {}
+              )
+            }
+          }
 
         }
       }
