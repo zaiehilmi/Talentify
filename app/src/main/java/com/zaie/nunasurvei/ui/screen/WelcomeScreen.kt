@@ -1,5 +1,6 @@
 package com.zaie.nunasurvei.ui.screen
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -14,16 +15,39 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.zaie.nunasurvei.Destinasi
+import com.zaie.nunasurvei.transitionSpec
 import com.zaie.nunasurvei.ui.component.ZaieButton
 import com.zaie.nunasurvei.ui.theme.ZaieColor
+import dev.olshevski.navigation.reimagined.AnimatedNavHost
+import dev.olshevski.navigation.reimagined.NavBackHandler
+import dev.olshevski.navigation.reimagined.NavController
+import dev.olshevski.navigation.reimagined.navigate
+import dev.olshevski.navigation.reimagined.rememberNavController
 
+// MARK: Main
 @Composable
 fun WelcomeScreen() {
-  Main()
+  val navController = rememberNavController<Destinasi>(
+    startDestination = Destinasi.Welcome
+  )
+
+  NavBackHandler(controller = navController)
+
+  AnimatedNavHost(
+    controller = navController,
+    transitionSpec = transitionSpec
+  ) { destinasi ->
+    when (destinasi) {
+      Destinasi.Welcome -> Main(navController)
+      Destinasi.Register -> RegisterScreen()
+      Destinasi.Login -> TODO()
+    }
+  }
 }
 
 @Composable
-private fun Main() {
+private fun Main(nav: NavController<Destinasi>) {
   Scaffold(
     containerColor = ZaieColor.surfaceFrozen,
     modifier = Modifier
@@ -37,11 +61,12 @@ private fun Main() {
         .padding(top = 140.dp, bottom = 40.dp, start = 20.dp, end = 20.dp)
     ) {
       Greeting()
-      BottomButton()
+      BottomButton(nav = nav)
     }
   }
 }
 
+// MARK: Component
 @Composable
 private fun Greeting() {
   Column {
@@ -50,7 +75,7 @@ private fun Greeting() {
       style = typography.displaySmall
     )
     Text(
-      text = "Talentify",
+      text = "talentify",
       style = typography
         .displayMedium
         .copy(
@@ -63,7 +88,7 @@ private fun Greeting() {
 }
 
 @Composable
-private fun BottomButton() {
+private fun BottomButton(nav: NavController<Destinasi>) {
   Row(
     horizontalArrangement = Arrangement.SpaceBetween,
     modifier = Modifier
@@ -77,8 +102,26 @@ private fun BottomButton() {
     ZaieButton(
       title = "Register",
       onTap = {
-//        ZaieNavHost().navigate(Destinasi.Register)
+        Log.d("Main", "Pergi ke Register")
+        nav.navigate(Destinasi.Register)
       }
     )
   }
 }
+
+//private val MainNavHostTransitionSpec =
+//  NavTransitionSpec<Destinasi> { _, from, _ ->
+//    if (from == MainDestination.Splash) {
+//      val outDuration = 100
+//      fadeIn(
+//        animationSpec = tween(durationMillis = 200, delayMillis = outDuration)
+//      ) togetherWith fadeOut(
+//        animationSpec = tween(durationMillis = outDuration)
+//      ) + scaleOut(
+//        targetScale = 2f,
+//        animationSpec = tween(durationMillis = outDuration)
+//      )
+//    } else {
+//      fadeIn(tween()) togetherWith fadeOut(tween())
+//    }
+//  }
