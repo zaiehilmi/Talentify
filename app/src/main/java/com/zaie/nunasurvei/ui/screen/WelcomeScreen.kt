@@ -25,6 +25,7 @@ import dev.olshevski.navigation.reimagined.NavController
 import dev.olshevski.navigation.reimagined.navigate
 import dev.olshevski.navigation.reimagined.rememberNavController
 
+
 // MARK: Main
 @Composable
 fun WelcomeScreen() {
@@ -40,7 +41,7 @@ fun WelcomeScreen() {
   ) { destinasi ->
     when (destinasi) {
       Destinasi.Welcome -> Main(navController)
-      Destinasi.Register -> RegisterScreen()
+      Destinasi.Register -> RegisterScreen(navController)
       Destinasi.Login -> TODO()
     }
   }
@@ -58,7 +59,12 @@ private fun Main(nav: NavController<Destinasi>) {
       modifier = Modifier
         .padding(innerPadding)
         .fillMaxSize()
-        .padding(top = 140.dp, bottom = 40.dp, start = 20.dp, end = 20.dp)
+        .padding(
+          top = 140.dp,
+          bottom = 40.dp,
+          start = 20.dp,
+          end = 20.dp
+        )
     ) {
       Greeting()
       BottomButton(nav = nav)
