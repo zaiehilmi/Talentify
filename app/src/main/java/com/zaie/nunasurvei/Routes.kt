@@ -12,8 +12,8 @@ sealed class Destinasi : Parcelable {
   @Parcelize
   data object Welcome : Destinasi()
 
-  @Parcelize
-  data object Register : Destinasi()
+//  @Parcelize
+//  data object Register : Destinasi()
 }
 
 @Composable
@@ -27,7 +27,7 @@ fun ZaieNavHost() {
   NavHost(navController) { destination ->
     when (destination) {
       is Destinasi.Welcome -> MainActivity()
-      is Destinasi.Register -> RegisterActivity()
+//      is Destinasi.Register -> RegisterActivity()
     }
   }
 }
