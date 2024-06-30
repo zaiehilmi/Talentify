@@ -1,4 +1,4 @@
-package com.zaie.nunasurvei.component
+package com.zaie.nunasurvei.ui.component
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height

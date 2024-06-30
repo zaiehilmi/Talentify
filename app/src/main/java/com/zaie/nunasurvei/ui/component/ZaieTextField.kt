@@ -1,4 +1,4 @@
-package com.zaie.nunasurvei.component
+package com.zaie.nunasurvei.ui.component
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
