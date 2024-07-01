@@ -114,20 +114,3 @@ private fun BottomButton(nav: NavController<Destinasi>) {
     )
   }
 }
-
-//private val MainNavHostTransitionSpec =
-//  NavTransitionSpec<Destinasi> { _, from, _ ->
-//    if (from == MainDestination.Splash) {
-//      val outDuration = 100
-//      fadeIn(
-//        animationSpec = tween(durationMillis = 200, delayMillis = outDuration)
-//      ) togetherWith fadeOut(
-//        animationSpec = tween(durationMillis = outDuration)
-//      ) + scaleOut(
-//        targetScale = 2f,
-//        animationSpec = tween(durationMillis = outDuration)
-//      )
-//    } else {
-//      fadeIn(tween()) togetherWith fadeOut(tween())
-//    }
-//  }

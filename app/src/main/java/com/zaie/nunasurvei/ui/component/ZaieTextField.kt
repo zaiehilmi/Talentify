@@ -10,12 +10,15 @@ import androidx.compose.material3.MaterialTheme.typography
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.zaie.nunasurvei.ui.theme.ZaieColor
@@ -23,10 +26,16 @@ import com.zaie.nunasurvei.ui.theme.ZaieColor
 @Composable
 fun ZaieTextField(
   label: String = "Lala Label",
-  state: String,
-  placeholder: String = ""
+  state: MutableState<TextFieldValue>,
+  placeholder: String = "",
+  isObscure: Boolean = false
 ) {
-  var username by remember { mutableStateOf(state) }
+  val visualTransformation = if (isObscure) {
+    PasswordVisualTransformation()
+  } else {
+    VisualTransformation.None
+  }
+
   val outlineColor by remember {
     mutableStateOf(Color(0xff000000))
   }
@@ -39,10 +48,11 @@ fun ZaieTextField(
     )
     Spacer(modifier = Modifier.height(5.dp))
     OutlinedTextField(
-      value = username,
+      value = state.value,
       onValueChange = {
-        username = it
+        state.value = it
       },
+      visualTransformation = visualTransformation,
       shape = CircleShape,
       singleLine = true,
       placeholder = { Text(text = placeholder) },
@@ -57,7 +67,7 @@ fun ZaieTextField(
 @Composable
 fun PreviewTextField() {
   Column {
-    ZaieTextField(state = "lala placeholder")
-    ZaieTextField(state = "lala placeholder")
+//    ZaieTextField(state = "lala placeholder",)
+//    ZaieTextField(state = "lala placeholder")
   }
 }
