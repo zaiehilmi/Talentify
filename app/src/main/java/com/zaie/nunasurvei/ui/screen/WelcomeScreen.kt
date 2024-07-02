@@ -16,7 +16,8 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.zaie.nunasurvei.Destinasi
-import com.zaie.nunasurvei.transitionSpec
+import com.zaie.nunasurvei.popupTransitionSpec
+import com.zaie.nunasurvei.screenTransitionSpec
 import com.zaie.nunasurvei.ui.component.ZaieButton
 import com.zaie.nunasurvei.ui.theme.ZaieColor
 import dev.olshevski.navigation.reimagined.AnimatedNavHost
@@ -37,13 +38,12 @@ fun WelcomeScreen() {
 
   AnimatedNavHost(
     controller = navController,
-    transitionSpec = transitionSpec
+    transitionSpec = screenTransitionSpec
   ) { destinasi ->
-    when (destinasi) {
-      Destinasi.Welcome -> Main(navController)
-      Destinasi.Register -> RegisterScreen(navController)
-      Destinasi.Login -> TODO()
-    }
+    if (destinasi is Destinasi.Welcome)
+      Main(navController)
+    else if (destinasi is Destinasi.Register)
+      RegisterScreen(navController)
   }
 }
 
@@ -95,6 +95,20 @@ private fun Greeting() {
 
 @Composable
 private fun BottomButton(nav: NavController<Destinasi>) {
+  val navController = rememberNavController<Destinasi>(
+    startDestination = Destinasi.Welcome
+  )
+
+  NavBackHandler(controller = navController)
+
+  AnimatedNavHost(
+    controller = navController,
+    transitionSpec = popupTransitionSpec
+  ) { destinasi ->
+    if (destinasi is Destinasi.Login)
+      LoginScreen()
+  }
+
   Row(
     horizontalArrangement = Arrangement.SpaceBetween,
     modifier = Modifier
@@ -103,7 +117,9 @@ private fun BottomButton(nav: NavController<Destinasi>) {
     ZaieButton(
       title = "Login",
       isSecondary = true,
-      onTap = {}
+      onTap = {
+        navController.navigate(Destinasi.Login)
+      }
     )
     ZaieButton(
       title = "Register",

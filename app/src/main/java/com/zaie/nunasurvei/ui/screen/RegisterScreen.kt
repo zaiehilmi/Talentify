@@ -4,6 +4,7 @@ import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -69,8 +70,9 @@ private fun Body(nav: NavController<Destinasi>) {
     state = remember { mutableStateOf(usernameTF) },
     isObscure = true
   )
-  Spacer(modifier = Modifier.height(50.dp))
+  Spacer(modifier = Modifier.height(100.dp))
   ZaieButton(
+    modifier = Modifier.fillMaxWidth(),
     title = "Register",
     onTap = {
       nav.pop()

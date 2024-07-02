@@ -28,14 +28,16 @@ data class ZaieButtonOption(
 
 @Composable
 fun ZaieButton(
+  modifier: Modifier = Modifier,
   title: String = "title",
   isSecondary: Boolean = false,
   onTap: () -> Unit,
 ) {
   val buttonOption = ZaieButtonOption(
-    modifierz = Modifier
+    modifierz = modifier
       .height(60.dp)
-      .width(130.dp),
+      .width(130.dp)
+      .then(modifier),
     typographyz = typography
       .titleMedium
       .copy(fontWeight = FontWeight.SemiBold)

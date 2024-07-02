@@ -19,11 +19,21 @@ sealed class Destinasi : Parcelable {
   data object Login : Destinasi()
 }
 
-val transitionSpec = NavTransitionSpec<Destinasi> { action, from, to ->
+val screenTransitionSpec = NavTransitionSpec<Destinasi> { action, from, to ->
   val arah = if (action == NavAction.Navigate) {
     AnimatedContentTransitionScope.SlideDirection.Left
   } else {
     AnimatedContentTransitionScope.SlideDirection.Right
+  }
+
+  slideIntoContainer(arah) togetherWith slideOutOfContainer(arah)
+}
+
+val popupTransitionSpec = NavTransitionSpec<Destinasi> { action, from, to ->
+  val arah = if (to == Destinasi.Login) {
+    AnimatedContentTransitionScope.SlideDirection.Up
+  } else {
+    AnimatedContentTransitionScope.SlideDirection.Down
   }
 
   slideIntoContainer(arah) togetherWith slideOutOfContainer(arah)
