@@ -18,6 +18,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.zaie.nunasurvei.Destinasi
+import com.zaie.nunasurvei.ui.component.SpacingBetweenTextField
 import com.zaie.nunasurvei.ui.component.ZaieAppBar
 import com.zaie.nunasurvei.ui.component.ZaieButton
 import com.zaie.nunasurvei.ui.component.ZaieTextField
@@ -57,13 +58,13 @@ private fun Body(nav: NavController<Destinasi>) {
     placeholder = "Enter your nickname",
     state = remember { mutableStateOf(nicknameTF) }
   )
-  Spacer(modifier = Modifier.height(25.dp))
+  SpacingBetweenTextField()
   ZaieTextField(
     label = "Username",
     placeholder = "Enter your Username",
     state = remember { mutableStateOf(usernameTF) }
   )
-  Spacer(modifier = Modifier.height(25.dp))
+  SpacingBetweenTextField()
   ZaieTextField(
     label = "Password",
     placeholder = "Enter your password",

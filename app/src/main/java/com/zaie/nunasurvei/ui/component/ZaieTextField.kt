@@ -63,6 +63,11 @@ fun ZaieTextField(
   }
 }
 
+@Composable
+fun SpacingBetweenTextField() {
+  Spacer(modifier = Modifier.height(25.dp))
+}
+
 @Preview(showBackground = true)
 @Composable
 fun PreviewTextField() {
