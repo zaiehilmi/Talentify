@@ -30,11 +30,7 @@ import dev.olshevski.navigation.reimagined.rememberNavController
 // MARK: Main
 @Composable
 fun WelcomeScreen() {
-  val navController = rememberNavController<Destinasi>(
-    startDestination = Destinasi.Welcome
-  )
-
-  NavBackHandler(controller = navController)
+  val navController = navHost()
 
   AnimatedNavHost(
     controller = navController,
@@ -44,6 +40,8 @@ fun WelcomeScreen() {
       Main(navController)
     else if (destinasi is Destinasi.Register)
       RegisterScreen(navController)
+    else if (destinasi is Destinasi.Intro)
+      IntroScreen()
   }
 }
 
@@ -95,18 +93,14 @@ private fun Greeting() {
 
 @Composable
 private fun BottomButton(nav: NavController<Destinasi>) {
-  val navController = rememberNavController<Destinasi>(
-    startDestination = Destinasi.Welcome
-  )
-
-  NavBackHandler(controller = navController)
+  val navController = navHost()
 
   AnimatedNavHost(
     controller = navController,
     transitionSpec = popupTransitionSpec
   ) { destinasi ->
     if (destinasi is Destinasi.Login)
-      LoginScreen()
+      LoginScreen(navController)
   }
 
   Row(
@@ -129,4 +123,15 @@ private fun BottomButton(nav: NavController<Destinasi>) {
       }
     )
   }
+}
+
+@Composable
+private fun navHost(): NavController<Destinasi> {
+  val navController = rememberNavController<Destinasi>(
+    startDestination = Destinasi.Welcome
+  )
+
+  NavBackHandler(controller = navController)
+
+  return navController
 }
