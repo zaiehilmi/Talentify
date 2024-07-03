@@ -100,7 +100,7 @@ private fun BottomButton(nav: NavController<Destinasi>) {
     transitionSpec = popupTransitionSpec
   ) { destinasi ->
     if (destinasi is Destinasi.Login)
-      LoginScreen(navController)
+      LoginScreen(nav)
   }
 
   Row(
