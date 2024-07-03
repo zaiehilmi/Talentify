@@ -36,12 +36,12 @@ fun WelcomeScreen() {
     controller = navController,
     transitionSpec = screenTransitionSpec
   ) { destinasi ->
-    if (destinasi is Destinasi.Welcome)
-      Main(navController)
-    else if (destinasi is Destinasi.Register)
-      RegisterScreen(navController)
-    else if (destinasi is Destinasi.Intro)
-      IntroScreen()
+    when (destinasi) {
+      is Destinasi.Welcome -> Main(navController)
+      is Destinasi.Register -> RegisterScreen(navController)
+      is Destinasi.Intro -> IntroScreen()
+      else -> {}
+    }
   }
 }
 
