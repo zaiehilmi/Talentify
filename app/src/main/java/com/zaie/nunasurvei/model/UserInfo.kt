@@ -1,10 +1,17 @@
 package com.zaie.nunasurvei.model
 
-data class UserInfo(
-  val username: String,
-  val score: Int
-) {
-  companion object {
-//        fun addScore()
+import com.zaie.nunasurvei.model.SoalanSurvei.skillMap
+
+object UserInfo {
+  var username: String = ""
+  var score: Int = 0
+  var senaraiBilanganSoalan: MutableList<Int> = MutableList(getTotalQuestionCount()) { 0 }
+
+  private fun getTotalQuestionCount(): Int {
+    var totalQuestions = 0
+    for (questions in skillMap.values) {
+      totalQuestions += questions.size
+    }
+    return totalQuestions
   }
 }
