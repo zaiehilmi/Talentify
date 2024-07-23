@@ -30,6 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.zaie.nunasurvei.ui.theme.ZaieColor
 
@@ -39,6 +40,7 @@ fun QuestionScreen(
   soalan: String,
   onOptionSelected: (String) -> Unit
 ) {
+  var indeksDipilih by remember { mutableStateOf<Int?>(null) }
 
   Surface(modifier = Modifier.background(ZaieColor.surfaceFrozen)) {
     Column(
@@ -58,7 +60,9 @@ fun QuestionScreen(
         textAlign = TextAlign.Center
       )
 
-      RatingSection()
+      RatingSection(indeksDipilih) { i ->
+        indeksDipilih = i
+      }
 
     }
   }
@@ -66,7 +70,7 @@ fun QuestionScreen(
 }
 
 @Composable
-private fun RatingSection() {
+private fun RatingSection(indeksDipilih: Int?, onIndexChange: (Int?) -> Unit) {
   Column(
     verticalArrangement = Arrangement.Center,
   ) {
@@ -78,16 +82,15 @@ private fun RatingSection() {
       Text(text = "Strongly Agree")
     }
     Spacer(modifier = Modifier.height(8.dp))
-    RatingButtons()
+    RatingButtons(indeksDipilih, onIndexChange)
     Spacer(modifier = Modifier.height(10.dp))
-    Navigation()
+    Navigation(indeksDipilih)
   }
 }
 
 @Composable
-private fun RatingButtons() {
-  val options = listOf("1", "2", "3", "4", "5")
-  var selectedIndex by remember { mutableStateOf<Int?>(null) }
+private fun RatingButtons(indeksDipilih: Int?, onIndexChange: (Int?) -> Unit) {
+  val options = listOf(1, 2, 3, 4, 5)
 
   val chipColors = listOf(
     Color(0xFFE91E63), // Pink
@@ -103,7 +106,7 @@ private fun RatingButtons() {
     horizontalArrangement = Arrangement.SpaceAround
   ) {
     options.forEachIndexed { index, option ->
-      val isSelected = index == selectedIndex
+      val isSelected = index == indeksDipilih
       val animatedSelected by animateDpAsState(
         targetValue = if (isSelected) 16.dp else 0.dp,
         label = "selectedAnimation"
@@ -113,48 +116,59 @@ private fun RatingButtons() {
         selected = isSelected,
         onClick = {
           Log.d("Rating", "RatingButtons: tekan $option")
-          selectedIndex = if (isSelected) null else index
+          onIndexChange(if (isSelected) null else index)
         },
         label = {
           Text(
-            text = option,
+            text = "$option",
             color = if (isSelected) Color.Black else chipColors[index]
           )
         },
-        leadingIcon = if (isSelected) {
-          {
-            Icon(
-              imageVector = Icons.Filled.Done,
-              contentDescription = "Done icon",
-              modifier = Modifier.size(animatedSelected)
-            )
-          }
-        } else {
-          null
-        }
+        leadingIcon = ratingButtonLeadingIcon(isSelected, animatedSelected)
       )
     }
   }
 }
 
 @Composable
-private fun Navigation() {
+private fun Navigation(indeksDipilih: Int?) {
+  val nilaiDipilih = indeksDipilih?.plus(1)
+
   Row(
     Modifier.fillMaxWidth(),
     horizontalArrangement = Arrangement.SpaceBetween,
     verticalAlignment = Alignment.CenterVertically
   ) {
     TextButton(
-      onClick = { /*TODO*/ }
+      onClick = {
+      }
     ) {
       Text(text = "Previous")
     }
     TextButton(
-      onClick = { /*TODO*/ }
+      onClick = {
+        Log.d("Rating", "nilai $nilaiDipilih get last index")
+      }
     ) {
       Text(text = "Next")
     }
   }
+}
+
+@Composable
+private fun ratingButtonLeadingIcon(
+  isSelected: Boolean,
+  animatedSelected: Dp
+): @Composable (() -> Unit)? = if (isSelected) {
+  {
+    Icon(
+      imageVector = Icons.Filled.Done,
+      contentDescription = "Done icon",
+      modifier = Modifier.size(animatedSelected)
+    )
+  }
+} else {
+  null
 }
 
 @Preview
