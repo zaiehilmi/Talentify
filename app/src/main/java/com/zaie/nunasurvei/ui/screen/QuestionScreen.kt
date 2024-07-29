@@ -32,12 +32,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.zaie.nunasurvei.model.NamaKemahiran
+import com.zaie.nunasurvei.model.Soalan
 import com.zaie.nunasurvei.ui.theme.ZaieColor
 
 @Composable
 fun QuestionScreen(
-  namaKemahiran: String,
-  soalan: String,
+  soalan: Soalan,
   onOptionSelected: (String) -> Unit
 ) {
   var indeksDipilih by remember { mutableStateOf<Int?>(null) }
@@ -51,11 +52,11 @@ fun QuestionScreen(
       horizontalAlignment = Alignment.CenterHorizontally
     ) {
       Text(
-        namaKemahiran,
+        soalan.namaKemahiran.displayName,
         style = typography.titleMedium
       )
       Text(
-        soalan,
+        soalan.soalan,
         style = typography.titleLarge,
         textAlign = TextAlign.Center
       )
@@ -175,8 +176,7 @@ private fun ratingButtonLeadingIcon(
 @Composable
 private fun PreviewQuestionScreen() {
   QuestionScreen(
-    namaKemahiran = "Internet Skills",
-    soalan = "Should employees in the manufacturing sector be skilled in using industry-specific software (e.g., CAD software)?",
+    soalan = Soalan(NamaKemahiran.AI_SKILLS, "Lala"),
     onOptionSelected = {}
   )
 }
