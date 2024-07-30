@@ -29,15 +29,15 @@ import dev.olshevski.navigation.reimagined.navigate
 import dev.olshevski.navigation.reimagined.rememberNavController
 
 @Composable
-fun IntroScreen() {
+fun IntroScreen(nav: NavController<Destinasi>) {
   val navController = navHost()
 
   AnimatedNavHost(
     controller = navController,
     transitionSpec = screenTransitionSpec
   ) { destination ->
-    if (destination is Destinasi.Survey)
-      SurveyScreen()
+    if (destination is Destinasi.Question)
+      QuestionScreen(nav)
   }
 
   Column(
@@ -65,7 +65,7 @@ fun IntroScreen() {
       ZaieButton(
         title = "Continue",
         onTap = {
-          navController.navigate(Destinasi.Survey)
+          nav.navigate(Destinasi.Question)
           Log.i("Intro", "Pergi menjawab soalan")
         },
         modifier = Modifier.fillMaxWidth()

@@ -29,17 +29,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.zaie.nunasurvei.model.NamaKemahiran
+import com.zaie.nunasurvei.Destinasi
 import com.zaie.nunasurvei.model.Soalan
+import com.zaie.nunasurvei.model.SoalanSurvei
 import com.zaie.nunasurvei.ui.theme.ZaieColor
+import dev.olshevski.navigation.reimagined.NavController
 
 @Composable
 fun QuestionScreen(
-  soalan: Soalan,
-  onOptionSelected: (String) -> Unit
+  nav: NavController<Destinasi>,
+  soalan: Soalan = SoalanSurvei.semuaSoalan.first(),
 ) {
   var indeksDipilih by remember { mutableStateOf<Int?>(null) }
 
@@ -170,13 +171,4 @@ private fun ratingButtonLeadingIcon(
   }
 } else {
   null
-}
-
-@Preview
-@Composable
-private fun PreviewQuestionScreen() {
-  QuestionScreen(
-    soalan = Soalan(NamaKemahiran.AI_SKILLS, "Lala"),
-    onOptionSelected = {}
-  )
 }
