@@ -34,9 +34,12 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.zaie.nunasurvei.Destinasi
 import com.zaie.nunasurvei.model.SoalanSurvei
+import com.zaie.nunasurvei.screenTransitionSpec
 import com.zaie.nunasurvei.ui.theme.ZaieColor
+import dev.olshevski.navigation.reimagined.AnimatedNavHost
 import dev.olshevski.navigation.reimagined.NavBackHandler
 import dev.olshevski.navigation.reimagined.NavController
+import dev.olshevski.navigation.reimagined.navigate
 import dev.olshevski.navigation.reimagined.rememberNavController
 
 @Composable
@@ -45,12 +48,17 @@ fun QuestionScreen(
 ) {
   var indeksDipilih by remember { mutableStateOf<Int?>(null) }
   var soalannya by remember { mutableStateOf(SoalanSurvei.semuaSoalan[SoalanSurvei.indeksKedudukan]) }
+  val navController = navHost()
 
-  LaunchedEffect(soalannya) {
-    Log.d(
-      "Nakfaham",
-      "Rating soalan: ${SoalanSurvei.semuaSoalan[SoalanSurvei.indeksKedudukan].rating}"
-    )
+  AnimatedNavHost(
+    controller = navController,
+    transitionSpec = screenTransitionSpec
+  ) { destination ->
+    if (destination is Destinasi.Result)
+      ResultScreen(nav)
+  }
+
+  LaunchedEffect(SoalanSurvei.indeksKedudukan) {
     indeksDipilih = null
   }
 
@@ -95,7 +103,7 @@ fun QuestionScreen(
               )
             }
           } else {
-            Log.i(
+            Log.d(
               "Navigasi",
               "Indeks sudah di ${SoalanSurvei.indeksKedudukan}. tak boleh ke skrin sebelumnya"
             )
@@ -104,7 +112,7 @@ fun QuestionScreen(
           onNext = {
             val dahPilihRating = indeksDipilih != null
 
-            if (SoalanSurvei.indeksKedudukan < SoalanSurvei.semuaSoalan.size - 1) {
+            if (SoalanSurvei.indeksKedudukan < SoalanSurvei.semuaSoalan.size) {
               if (dahPilihRating) {
                 soalannya = SoalanSurvei.semuaSoalan[SoalanSurvei.indeksKedudukan]
                 soalannya.rating = indeksDipilih!!.plus(1)
@@ -113,16 +121,15 @@ fun QuestionScreen(
 
                 Log.i(
                   "Rating",
-                  "Soalan ${SoalanSurvei.indeksKedudukan} dengan rating ${SoalanSurvei.semuaSoalan[SoalanSurvei.indeksKedudukan].rating}"
+                  "Soalan ${SoalanSurvei.indeksKedudukan} :: ${SoalanSurvei.semuaSoalan[SoalanSurvei.indeksKedudukan].rating}"
                 )
 
-                SoalanSurvei.semuaSoalan.forEach {
-                  Log.i(
-                    "Rating",
-                    "onNext Soalan ${it.soalan} dengan rating ${it.rating}"
-                  )
-                }
+                ++SoalanSurvei.indeksKedudukan
               }
+            } else {
+              Log.i("Navigasi", "Pergi ke result")
+              Log.i("Rating", "${kiraSkor()}")
+              nav.navigate(Destinasi.Result)
             }
           })
       }

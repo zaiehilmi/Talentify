@@ -41,6 +41,7 @@ fun WelcomeScreen() {
       is Destinasi.Register -> RegisterScreen(navController)
       is Destinasi.Intro -> IntroScreen(navController)
       is Destinasi.Question -> QuestionScreen(navController)
+      is Destinasi.Result -> ResultScreen(navController)
       else -> {}
     }
   }

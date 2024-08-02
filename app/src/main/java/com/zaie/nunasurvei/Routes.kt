@@ -23,6 +23,9 @@ sealed class Destinasi : Parcelable {
 
   @Parcelize
   data object Question : Destinasi()
+  
+  @Parcelize
+  data object Result : Destinasi()
 }
 
 val screenTransitionSpec = NavTransitionSpec<Destinasi> { action, _, _ ->
