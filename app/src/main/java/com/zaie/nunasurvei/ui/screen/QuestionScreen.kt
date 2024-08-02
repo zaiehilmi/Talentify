@@ -21,6 +21,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -32,17 +33,26 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.zaie.nunasurvei.Destinasi
-import com.zaie.nunasurvei.model.Soalan
 import com.zaie.nunasurvei.model.SoalanSurvei
 import com.zaie.nunasurvei.ui.theme.ZaieColor
+import dev.olshevski.navigation.reimagined.NavBackHandler
 import dev.olshevski.navigation.reimagined.NavController
+import dev.olshevski.navigation.reimagined.rememberNavController
 
 @Composable
 fun QuestionScreen(
   nav: NavController<Destinasi>,
-  soalan: Soalan = SoalanSurvei.semuaSoalan.first(),
 ) {
   var indeksDipilih by remember { mutableStateOf<Int?>(null) }
+  var soalannya by remember { mutableStateOf(SoalanSurvei.semuaSoalan[SoalanSurvei.indeksKedudukan]) }
+
+  LaunchedEffect(soalannya) {
+    Log.d(
+      "Nakfaham",
+      "Rating soalan: ${SoalanSurvei.semuaSoalan[SoalanSurvei.indeksKedudukan].rating}"
+    )
+    indeksDipilih = null
+  }
 
   Surface(modifier = Modifier.background(ZaieColor.surfaceFrozen)) {
     Column(
@@ -53,17 +63,68 @@ fun QuestionScreen(
       horizontalAlignment = Alignment.CenterHorizontally
     ) {
       Text(
-        soalan.namaKemahiran.displayName,
+        soalannya.namaKemahiran.displayName,
         style = typography.titleMedium
       )
       Text(
-        soalan.soalan,
+        soalannya.soalan,
         style = typography.titleLarge,
         textAlign = TextAlign.Center
       )
 
-      RatingSection(indeksDipilih) { i ->
-        indeksDipilih = i
+      Column {
+        RatingSection(indeksDipilih) { i ->
+          indeksDipilih = i
+        }
+
+        Spacer(modifier = Modifier.height(10.dp))
+        Navigation(onPrevious = {
+          if (SoalanSurvei.indeksKedudukan > 0) {
+            soalannya = SoalanSurvei.semuaSoalan[SoalanSurvei.indeksKedudukan]
+            SoalanSurvei.indeksKedudukan--
+
+            Log.i(
+              "Rating",
+              "Soalan ${SoalanSurvei.indeksKedudukan} dengan rating ${SoalanSurvei.semuaSoalan[SoalanSurvei.indeksKedudukan].rating}"
+            )
+
+            SoalanSurvei.semuaSoalan.forEach {
+              Log.i(
+                "Rating",
+                "onPrev Soalan ${it.namaKemahiran.displayName} dengan rating ${it.rating}"
+              )
+            }
+          } else {
+            Log.i(
+              "Navigasi",
+              "Indeks sudah di ${SoalanSurvei.indeksKedudukan}. tak boleh ke skrin sebelumnya"
+            )
+          }
+        },
+          onNext = {
+            val dahPilihRating = indeksDipilih != null
+
+            if (SoalanSurvei.indeksKedudukan < SoalanSurvei.semuaSoalan.size - 1) {
+              if (dahPilihRating) {
+                soalannya = SoalanSurvei.semuaSoalan[SoalanSurvei.indeksKedudukan]
+                soalannya.rating = indeksDipilih!!.plus(1)
+
+                SoalanSurvei.indeksKedudukan++
+
+                Log.i(
+                  "Rating",
+                  "Soalan ${SoalanSurvei.indeksKedudukan} dengan rating ${SoalanSurvei.semuaSoalan[SoalanSurvei.indeksKedudukan].rating}"
+                )
+
+                SoalanSurvei.semuaSoalan.forEach {
+                  Log.i(
+                    "Rating",
+                    "onNext Soalan ${it.soalan} dengan rating ${it.rating}"
+                  )
+                }
+              }
+            }
+          })
       }
 
     }
@@ -85,8 +146,6 @@ private fun RatingSection(indeksDipilih: Int?, onIndexChange: (Int?) -> Unit) {
     }
     Spacer(modifier = Modifier.height(8.dp))
     RatingButtons(indeksDipilih, onIndexChange)
-    Spacer(modifier = Modifier.height(10.dp))
-    Navigation(indeksDipilih)
   }
 }
 
@@ -133,28 +192,36 @@ private fun RatingButtons(indeksDipilih: Int?, onIndexChange: (Int?) -> Unit) {
 }
 
 @Composable
-private fun Navigation(indeksDipilih: Int?) {
-  val nilaiDipilih = indeksDipilih?.plus(1)
-
+private fun Navigation(onPrevious: () -> Unit, onNext: () -> Unit) {
   Row(
     Modifier.fillMaxWidth(),
     horizontalArrangement = Arrangement.SpaceBetween,
     verticalAlignment = Alignment.CenterVertically
   ) {
     TextButton(
-      onClick = {
-      }
+      onClick = onPrevious
     ) {
       Text(text = "Previous")
     }
+
+
     TextButton(
-      onClick = {
-        Log.d("Rating", "nilai $nilaiDipilih get last index")
-      }
+      onClick = onNext
     ) {
       Text(text = "Next")
     }
   }
+}
+
+@Composable
+private fun navHost(): NavController<Destinasi> {
+  val navController = rememberNavController<Destinasi>(
+    startDestination = Destinasi.Question
+  )
+
+  NavBackHandler(controller = navController)
+
+  return navController
 }
 
 @Composable

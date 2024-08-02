@@ -1,129 +1,131 @@
 package com.zaie.nunasurvei.model
 
 object SoalanSurvei {
+  var indeksKedudukan = 0
+
   val semuaSoalan = listOf(
-    Soalan(
+    ModelSoalan(
       NamaKemahiran.INTERNET_SKILLS,
       "Do you think the ability to effectively use search engines is essential for employees in the manufacturing industry?"
     ),
-    Soalan(
+    ModelSoalan(
       NamaKemahiran.INTERNET_SKILLS,
       "Is it important for manufacturing employees to be proficient in using online collaborationtools (e.g., Google Workspace)?)"
     ),
-    Soalan(
+    ModelSoalan(
       NamaKemahiran.INTERNET_SKILLS,
       "Should all employees in the manufacturing sector be skilled in navigating and using cloud storage solutions?"
     ),
-    Soalan(
+    ModelSoalan(
       NamaKemahiran.INTERNET_SKILLS,
       "Do you believe that knowledge of online research methods is crucial for manufacturing employees?"
     ),
-    Soalan(
+    ModelSoalan(
       NamaKemahiran.INTERNET_SKILLS,
       "Is it necessary for employees to be familiar with internet-based communication tools (e.g., email, messaging apps)?"
     ),
 
-    Soalan(
+    ModelSoalan(
       NamaKemahiran.SOFTWARE_SKILLS,
       "Do you think proficiency in Microsoft Office (Word, Excel, PowerPoint) is essential for manufacturing employees?"
     ),
-    Soalan(
+    ModelSoalan(
       NamaKemahiran.SOFTWARE_SKILLS,
       "Should employees in the manufacturing sector be skilled in using industry-specific software (e.g., CAD software)?"
     ),
-    Soalan(
+    ModelSoalan(
       NamaKemahiran.SOFTWARE_SKILLS,
       "Is it important for manufacturing employees to be able to troubleshoot basic software issues?"
     ),
-    Soalan(
+    ModelSoalan(
       NamaKemahiran.SOFTWARE_SKILLS,
       "Do you believe that understanding database management systems is crucial for manufacturingemployees?"
     ),
-    Soalan(
+    ModelSoalan(
       NamaKemahiran.SOFTWARE_SKILLS,
       "Is it necessary for manufacturing employees to be proficient in using project management software (e.g., Microsoft Project, Asana)?"
     ),
 
-    Soalan(
+    ModelSoalan(
       NamaKemahiran.HARDWARE_SKILLS,
       "Do you think it is essential for manufacturing employees to understand the basic components of a computer?"
     ),
-    Soalan(
+    ModelSoalan(
       NamaKemahiran.HARDWARE_SKILLS,
       "Should employees in the manufacturing sector be able to perform basic hardware troubleshooting?"
     ),
-    Soalan(
+    ModelSoalan(
       NamaKemahiran.HARDWARE_SKILLS,
       "Is it important for manufacturing employees to know how to set up and configure printers and other peripherals?"
     ),
-    Soalan(
+    ModelSoalan(
       NamaKemahiran.HARDWARE_SKILLS,
       "Do you believe that knowledge of hardware maintenance is crucial for manufacturing employees?"
     ),
-    Soalan(
+    ModelSoalan(
       NamaKemahiran.HARDWARE_SKILLS,
       "Is it necessary for employees to be familiar with the installation and configuration of computer hardware?"
     ),
 
-    Soalan(
+    ModelSoalan(
       NamaKemahiran.AI_SKILLS,
       "Do you think understanding the basics of artificial intelligence is important for manufacturing employees?"
     ),
-    Soalan(
+    ModelSoalan(
       NamaKemahiran.AI_SKILLS,
       "Should employees in the manufacturing sector be familiar with AI applications relevant to their field?"
     ),
-    Soalan(
+    ModelSoalan(
       NamaKemahiran.AI_SKILLS,
       "Is it important for manufacturing employees to know how to analyze data using AI tools?"
     ),
-    Soalan(
+    ModelSoalan(
       NamaKemahiran.AI_SKILLS,
       "Do you believe that knowledge of machine learning concepts is crucial for manufacturing employees?"
     ),
-    Soalan(
+    ModelSoalan(
       NamaKemahiran.AI_SKILLS,
       "Is it necessary for manufacturing employees to understand the ethical implications of AI?"
     ),
 
-    Soalan(
+    ModelSoalan(
       NamaKemahiran.VR_SKILLS,
       "Do you think familiarity with virtual reality technology is important for training purposes in the manufacturing industry?"
     ),
-    Soalan(
+    ModelSoalan(
       NamaKemahiran.VR_SKILLS,
       "Should employees in the manufacturing sector be able to operate VR equipment?"
     ),
-    Soalan(
+    ModelSoalan(
       NamaKemahiran.VR_SKILLS,
       "Is it important for manufacturing employees to understand the applications of VR in their field?"
     ),
-    Soalan(
+    ModelSoalan(
       NamaKemahiran.VR_SKILLS,
       "Do you believe that knowledge of VR software is crucial for manufacturing employees?"
     ),
-    Soalan(
+    ModelSoalan(
       NamaKemahiran.VR_SKILLS,
       "Is it necessary for manufacturing employees to be proficient in creating and manipulating VR content?"
     ),
 
-    Soalan(
+    ModelSoalan(
       NamaKemahiran.CYBERSECURITY_SKILLS,
       "Do you think knowledge of basic cybersecurity principles is essential for manufacturing employees?"
     ),
-    Soalan(
+    ModelSoalan(
       NamaKemahiran.CYBERSECURITY_SKILLS,
       "Should employees in the manufacturing sector be able to identify common cybersecurity threats (e.g., phishing, malware)?"
     ),
-    Soalan(
+    ModelSoalan(
       NamaKemahiran.CYBERSECURITY_SKILLS,
       "Is it important for manufacturing employees to know how to protect sensitive information?"
     ),
-    Soalan(
+    ModelSoalan(
       NamaKemahiran.CYBERSECURITY_SKILLS,
       "Do you believe that understanding network security is crucial for manufacturing employees?"
     ),
-    Soalan(
+    ModelSoalan(
       NamaKemahiran.CYBERSECURITY_SKILLS,
       "Is it necessary for manufacturing employees to be familiar with best practices for creating strong passwords?"
     )

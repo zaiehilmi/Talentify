@@ -1,7 +1,7 @@
 package com.zaie.nunasurvei.model
 
-data class Soalan(
+data class ModelSoalan(
   val namaKemahiran: NamaKemahiran,
   val soalan: String,
-  val rating: Int = 0
+  var rating: Int? = null
 )
