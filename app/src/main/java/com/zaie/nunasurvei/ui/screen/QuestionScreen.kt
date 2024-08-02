@@ -58,7 +58,7 @@ fun QuestionScreen(
       ResultScreen(nav)
   }
 
-  LaunchedEffect(SoalanSurvei.indeksKedudukan) {
+  LaunchedEffect(soalannya) {
     indeksDipilih = null
   }
 
@@ -116,8 +116,6 @@ fun QuestionScreen(
               if (dahPilihRating) {
                 soalannya = SoalanSurvei.semuaSoalan[SoalanSurvei.indeksKedudukan]
                 soalannya.rating = indeksDipilih!!.plus(1)
-
-                SoalanSurvei.indeksKedudukan++
 
                 Log.i(
                   "Rating",
